@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   srcDir: 'src',
   devtools: { enabled: true },
   routeRules: {
-    '/': { prerender: true },
+    '/': { prerender: false },
     '/recettes/**': { isr: true },
   },
   css: ['@unocss/reset/normalize.css', '~/assets/css/main.css'],
