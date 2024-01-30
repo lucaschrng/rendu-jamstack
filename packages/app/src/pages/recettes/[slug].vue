@@ -13,8 +13,6 @@ const { data: recipe } = useAsyncData(
     { populate: '*' },
   ),
 )
-
-console.log(recipe)
 </script>
 
 <template>
