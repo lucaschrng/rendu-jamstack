@@ -789,7 +789,7 @@ export interface ApiRecipeRecipe extends Schema.CollectionType {
       'api::tag.tag'
     >;
     image: Attribute.Media;
-    instructions: Attribute.Component<'instruction.instruction', true>;
+    steps: Attribute.Component<'step.instruction', true>;
     ingredients: Attribute.Component<'ingredient.ingredient', true>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;

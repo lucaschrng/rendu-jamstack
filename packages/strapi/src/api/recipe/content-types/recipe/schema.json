@@ -38,10 +38,10 @@
         "images"
       ]
     },
-    "instructions": {
+    "steps": {
       "type": "component",
       "repeatable": true,
-      "component": "instruction.instruction"
+      "component": "step.instruction"
     },
     "ingredients": {
       "type": "component",

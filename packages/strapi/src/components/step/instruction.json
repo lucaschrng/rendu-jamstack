@@ -10,10 +10,10 @@
     "name": {
       "type": "string"
     },
-    "steps": {
+    "substeps": {
       "type": "component",
       "repeatable": true,
-      "component": "step.etape"
+      "component": "substep.etape"
     }
   }
 }

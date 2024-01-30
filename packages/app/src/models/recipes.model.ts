@@ -4,15 +4,28 @@ export interface IRecipe {
   description: string
   slug: string
   publishedAt: string
-  tags: Tag[]
+  tags: ITag[]
   image: Image
+  ingredients: IIngredient[]
+  steps: IStep[]
 }
 
-export interface Tag {
+export interface IIngredient {
+  id: number
+  name: string
+  quantity: string
+}
+
+export interface IStep {
+  id: number
+  title: string
+  description: string
+}
+
+export interface ITag {
   id: number
   name: string
   slug: string
-  color: string
 }
 
 export interface Image {
@@ -34,4 +47,8 @@ export interface RecipesData {
       total: number
     }
   }
+}
+
+export interface RecipeData {
+  data: IRecipe
 }

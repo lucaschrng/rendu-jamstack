@@ -1,7 +1,8 @@
 {
   "collectionName": "components_step_etapes",
   "info": {
-    "displayName": "Etape"
+    "displayName": "Sous-instruction",
+    "description": ""
   },
   "options": {},
   "attributes": {

@@ -4,14 +4,26 @@ export interface IngredientIngredient extends Schema.Component {
   collectionName: 'components_ingredient_ingredients';
   info: {
     displayName: 'Ingr\u00E9dient';
+    description: '';
   };
   attributes: {
-    quantity: Attribute.String;
-    name: Attribute.String;
+    category: Attribute.String;
+    items: Attribute.Component<'item.item', true>;
   };
 }
 
-export interface InstructionInstruction extends Schema.Component {
+export interface ItemItem extends Schema.Component {
+  collectionName: 'components_item_items';
+  info: {
+    displayName: 'Item';
+  };
+  attributes: {
+    name: Attribute.String;
+    quantity: Attribute.String;
+  };
+}
+
+export interface StepInstruction extends Schema.Component {
   collectionName: 'components_instruction_instructions';
   info: {
     displayName: 'Instruction';
@@ -20,14 +32,15 @@ export interface InstructionInstruction extends Schema.Component {
   };
   attributes: {
     name: Attribute.String;
-    steps: Attribute.Component<'step.etape', true>;
+    substeps: Attribute.Component<'substep.etape', true>;
   };
 }
 
-export interface StepEtape extends Schema.Component {
+export interface SubstepEtape extends Schema.Component {
   collectionName: 'components_step_etapes';
   info: {
-    displayName: 'Etape';
+    displayName: 'Sous-instruction';
+    description: '';
   };
   attributes: {
     step: Attribute.Text;
@@ -38,8 +51,9 @@ declare module '@strapi/types' {
   export module Shared {
     export interface Components {
       'ingredient.ingredient': IngredientIngredient;
-      'instruction.instruction': InstructionInstruction;
-      'step.etape': StepEtape;
+      'item.item': ItemItem;
+      'step.instruction': StepInstruction;
+      'substep.etape': SubstepEtape;
     }
   }
 }

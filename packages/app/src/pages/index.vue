@@ -1,29 +1,21 @@
 <script lang="ts" setup>
 import { useSearchStore } from '#imports'
-import type { Tag } from '~/models/recipes.model'
 
 const { find } = useStrapi4()
 
-const { data: tags, pending } = await useAsyncData(
+const { data: tags, pending: tagsPending } = useAsyncData(
   'tags',
-  () => find<{ data: Tag[] }>(
-    'tags',
-    { populate: '*' },
-  ),
+  () => find('tags'),
 )
 
-const selectedTag = ref<{ name: string, id: number | null }>({ name: 'All', id: null })
-
 const search = useSearchStore()
-const filteredRecipes = computed(() => {
-  if (!search.results)
-    return []
 
-  if (!selectedTag.value.id)
-    return search.results
-
-  return search.results.filter(recipe => recipe.tags.map(tag => tag.id).includes(selectedTag.value.id ?? 0))
-})
+function handleTagClick(tagSlug: string) {
+  if (search.queryTags.includes(tagSlug))
+    search.queryTags = search.queryTags.filter(tag => tag !== tagSlug)
+  else
+    search.queryTags.push(tagSlug)
+}
 </script>
 
 <template>
@@ -42,39 +34,46 @@ const filteredRecipes = computed(() => {
       >
     </div>
 
-    <div class="flex items-center mb-6">
-      <label
-        class="mr-2"
-        for="tag"
-      >
+    <div
+      v-if="!tagsPending && tags.data && tags.data.length > 0"
+      class="flex items-center mb-6 gap-2"
+    >
+      <span class="mr-2">
         Categories
-      </label>
-      <select
-        v-model="selectedTag"
-        class="p-2 rounded border border-neutral-300"
+      </span>
+      <button
+        :style="{ border: '1px solid', borderColor: 'rgb(0, 0, 0, 0.1)' }"
+        class="bg-neutral-100 py-1 px-2 rounded flex gap-1 items-center cursor-pointer"
+        @click="search.resetTags"
       >
-        <option
-          :value="{ name: 'All', id: null }"
+        Reset
+      </button>
+      <button
+        v-for="tag in tags.data"
+        :key="tag.id"
+        :style="{ backgroundColor: tag.color, border: '1px solid', borderColor: 'rgb(0, 0, 0, 0.1)' }"
+        class="p-1 pr-2 rounded flex gap-1 items-center cursor-pointer"
+        @click="handleTagClick(tag.slug)"
+      >
+        <div
+          :style="{ backgroundColor: 'rgb(255, 255, 255, 0.5)', border: '1px solid', borderColor: 'rgb(0, 0, 0, 0.1)' }"
+          class="flex justify-center items-center h-4 w-4 rounded"
         >
-          All
-        </option>
-        <option
-          v-for="tag in tags.data"
-          :key="tag.id"
-          :value="tag"
-        >
-          {{ tag.name }}
-        </option>
-      </select>
+          <svg :style="{ color: tag.color, filter: 'brightness(20%)', opacity: search.queryTags.includes(tag.slug) ? 1 : 0 }" class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="m4.5 12.75 6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </div>
+        {{ tag.name }}
+      </button>
     </div>
 
     <div
-      v-if="!pending && search.results"
+      v-if="!search.pending && search.sortedByTags && search.sortedByTags.length > 0"
       :style="{ gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))' }"
       class="list-none grid gap-4"
     >
       <NuxtLink
-        v-for="recipe in filteredRecipes"
+        v-for="recipe in search.sortedByTags"
         :key="recipe.id"
         :to="`/recettes/${recipe.slug}`"
         class="bg-white rounded shadow decoration-none text-neutral-900 hover:shadow-md transition-shadow overflow-hidden"
@@ -101,7 +100,7 @@ const filteredRecipes = computed(() => {
         </div>
       </NuxtLink>
       <div
-        v-if="selectedTag.id && !filteredRecipes.length"
+        v-if="search.sortedByTags.length === 0"
         class="text-center absolute w-full mt-6"
       >
         Aucune recette
