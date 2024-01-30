@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_step_etapes",
+  "info": {
+    "displayName": "Etape"
+  },
+  "options": {},
+  "attributes": {
+    "step": {
+      "type": "text"
+    }
+  }
+}

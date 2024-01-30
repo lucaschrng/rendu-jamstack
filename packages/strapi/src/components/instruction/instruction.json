@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_instruction_instructions",
+  "info": {
+    "displayName": "Instruction",
+    "icon": "bulletList",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "steps": {
+      "type": "component",
+      "repeatable": true,
+      "component": "step.etape"
+    }
+  }
+}
