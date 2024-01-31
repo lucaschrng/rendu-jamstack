@@ -43,7 +43,7 @@ function handleTagClick(tagSlug: string) {
       </span>
       <button
         :style="{ border: '1px solid', borderColor: 'rgb(0, 0, 0, 0.1)' }"
-        class="bg-neutral-100 py-1 px-2 rounded flex gap-1 items-center cursor-pointer"
+        class="bg-neutral-100 py-1 px-2 rounded flex gap-1 items-center cursor-pointer font-sans font-medium"
         @click="search.resetTags"
       >
         Reset
@@ -52,7 +52,7 @@ function handleTagClick(tagSlug: string) {
         v-for="tag in tags.data"
         :key="tag.id"
         :style="{ backgroundColor: tag.color, border: '1px solid', borderColor: 'rgb(0, 0, 0, 0.1)' }"
-        class="p-1 pr-2 rounded flex gap-1 items-center cursor-pointer"
+        class="p-1 pr-2 rounded flex gap-1 items-center cursor-pointer font-sans font-medium"
         @click="handleTagClick(tag.slug)"
       >
         <div
