@@ -19,7 +19,7 @@ function handleTagClick(tagSlug: string) {
 </script>
 
 <template>
-  <div class="p-12">
+  <div class="p-12 max-sm:p-6">
     <h1>Recipes</h1>
 
     <div :style="{ border: '1px solid rgb(212, 212, 212)' }" class="rounded flex items-center w-fit bg-white mb-3 focus-within:outline outline-neutral-400">

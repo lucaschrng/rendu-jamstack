@@ -16,7 +16,7 @@ const { data: recipe } = useAsyncData(
 </script>
 
 <template>
-  <div v-if="recipe" class="p-12 m-auto max-w-3xl">
+  <div v-if="recipe" class="p-12 max-sm:p-6 m-auto max-w-3xl">
     <NuxtLink
       class="text-neutral-600 hover:text-neutral-900 transition"
       to="/"
