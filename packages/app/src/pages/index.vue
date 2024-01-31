@@ -36,7 +36,7 @@ function handleTagClick(tagSlug: string) {
 
     <div
       v-if="!tagsPending && tags.data && tags.data.length > 0"
-      class="flex items-center mb-6 gap-2"
+      class="flex items-center mb-6 gap-2 flex-wrap"
     >
       <span class="mr-2">
         Categories
